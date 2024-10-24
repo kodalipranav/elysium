@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "360610786266",
+    "project_id": "elysium-pk",
+    "storage_bucket": "elysium-pk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360610786266:android:5c563afb6f549fb3f06ee3",
+        "android_client_info": {
+          "package_name": "com.example.elysium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360610786266-2n6rskn96q3te3397lhrnlvgoqs2j6lk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.elysium",
+            "certificate_hash": "1aa82b52a242d291cc95f9146d6b64c4f6d975e8"
+          }
+        },
+        {
+          "client_id": "360610786266-dmr2p4im2bmi7lqe33vamg865ug9ltir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgn7SMKtWo4rNJpVLhYP62Ed5lREeuz_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360610786266-dmr2p4im2bmi7lqe33vamg865ug9ltir.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "360610786266-qqlrbehhcftaco9ra0dtt2e200knm7q2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.elysium"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

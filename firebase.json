@@ -1,0 +1,54 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "elysium-pk",
+          "appId": "1:360610786266:android:5c563afb6f549fb3f06ee3",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "elysium-pk",
+          "configurations": {
+            "android": "1:360610786266:android:5c563afb6f549fb3f06ee3",
+            "ios": "1:360610786266:ios:d15b49800f0f75d9f06ee3",
+            "macos": "1:360610786266:ios:d15b49800f0f75d9f06ee3",
+            "web": "1:360610786266:web:0943a25be4ceb3a4f06ee3",
+            "windows": "1:360610786266:web:712aff46979a7c12f06ee3"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ],
+  "emulators": {
+    "functions": {
+      "port": 5001,
+      "rules": "firestore.rules"
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true,
+    "pubsub": {
+      "port": 8085
+    }
+  }
+}
