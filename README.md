@@ -1,16 +1,7 @@
 # elysium
 
-A new Flutter project.
+Elysium is an app that can connect organizations to volunteers in a smooth, clean fashion while keeping postings accessible to the community. Searching posts becomes extremely easy and the process of creating posts is extremely easy for the organization.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application. The build method is not included.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The build method is not included in this repo.
