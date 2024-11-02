@@ -1,5 +1,3 @@
-// grid_item.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,7 +38,6 @@ class GridItem extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              // Main content
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +60,6 @@ class GridItem extends StatelessWidget {
                   ],
                 ),
               ),
-              // Counter badge
               if (counter > 0)
                 Positioned(
                   right: 12,
