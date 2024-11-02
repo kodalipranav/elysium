@@ -5,7 +5,6 @@ import 'package:elysium/start_page/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// ignore: must_be_immutable
 class StartProcess extends StatefulWidget{
   const StartProcess({required this.signed, required this.wrongType, required this.role, super.key});
 
