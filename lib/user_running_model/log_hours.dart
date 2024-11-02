@@ -37,7 +37,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
 
     final pendingLogsHive = List<Map<String, dynamic>>.from(userBox.get('pending_logs', defaultValue: []));
 
-    // Process Non-Recurring Logs
     nonRecurringBox.toMap().forEach((postID, post) {
       if (post['current'] == false) {
         for (var volunteers in post['accepted_volunteers']) {
@@ -71,7 +70,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
       }
     });
 
-    // Process Recurring Logs
     recurringBox.toMap().forEach((postID, post) {
       if (post['current'] == false) {
         for (var volunteers in post['accepted_volunteers']) {
@@ -121,7 +119,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
 
   @override
   Widget build(BuildContext context) {
-    // The build method remains the same as before
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -200,7 +197,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Date Selector for Recurring Posts
                 if (isRecurring)
                   DropdownButton<String>(
                     value: log['selected_date'],
@@ -221,13 +217,11 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
                     isExpanded: true,
                   )
                 else
-                  // Date Display for Non-Recurring Posts
                   Text(
                     'Date: ${DateFormat.yMMMd().format(DateTime.parse(log['date']))}',
                     style: GoogleFonts.lato(fontSize: 16),
                   ),
                 const SizedBox(height: 8),
-                // Start Time Picker
                 ListTile(
                   leading: const Icon(Icons.access_time),
                   title: Text(
@@ -248,7 +242,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
                     }
                   },
                 ),
-                // End Time Picker
                 ListTile(
                   leading: const Icon(Icons.access_time),
                   title: Text(
@@ -270,7 +263,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
                   },
                 ),
                 const SizedBox(height: 16),
-                // Submit Button
                 ElevatedButton(
                   onPressed: () {
                     submitHours(log);
@@ -299,7 +291,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
       return;
     }
 
-    // Calculate hours worked
     final dateStr = log['is_recurring'] ? log['selected_date'] : log['date'];
     final date = DateTime.parse(dateStr);
 
@@ -327,7 +318,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
 
     final hoursWorked = endDateTime.difference(startDateTime).inMinutes / 60.0;
 
-    // Show confirmation dialog
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) {
@@ -358,21 +348,17 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
 
     if (confirmed != true) return;
 
-    // Start Firestore transaction
     final firestore = FirebaseFirestore.instance;
 
-    List<Map<String, dynamic>> pendingLogs = []; // Declare here to access after transaction
+    List<Map<String, dynamic>> pendingLogs = [];
 
     try {
       await firestore.runTransaction((transaction) async {
-        // Determine the correct collection based on log type
         String collectionName = log['is_recurring'] ? 'recurring' : 'non_recurring';
         final postRef = firestore.collection(collectionName).doc(log['post_id']);
 
-        // Define document references
         final userRef = firestore.collection('users').doc(userId);
 
-        // Read all necessary documents first
         final userSnapshot = await transaction.get(userRef);
         if (!userSnapshot.exists) {
           throw Exception('User document does not exist.');
@@ -387,7 +373,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
         final postData = postSnapshot.data()!;
         Map<String, dynamic> postLog = Map<String, dynamic>.from(postData['log'] ?? {});
 
-        // Find the pending log for this post
         Map<String, dynamic>? pendingLog;
         for (var pl in pendingLogs) {
           if (pl['post_id'] == log['post_id']) {
@@ -397,24 +382,18 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
         }
 
         if (pendingLog != null) {
-          // Remove the date
           pendingLog['dates'].remove(dateStr);
           if (pendingLog['dates'].isEmpty) {
-            // Remove the entire pending log entry
             pendingLogs.remove(pendingLog);
           } else {
-            // Update the dates
             int index = pendingLogs.indexOf(pendingLog);
             pendingLogs[index] = pendingLog;
           }
 
-          // Update user's pending_logs
           transaction.update(userRef, {'pending_logs': pendingLogs});
         }
 
-        // Update post's log
         if (log['is_recurring']) {
-          // For recurring posts
           Map<String, dynamic> userLog = Map<String, dynamic>.from(postLog[userId] ?? {});
           userLog[dateStr] = {
             'hours_worked': hoursWorked,
@@ -423,7 +402,6 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
           };
           postLog[userId] = userLog;
         } else {
-          // For non-recurring posts
           postLog[userId] = {
             'hours_worked': hoursWorked,
             'start_time': log['start_time'].format(context),
@@ -432,20 +410,15 @@ class LogHoursState extends State<LogHours> with SingleTickerProviderStateMixin 
           };
         }
 
-        // Update post's log
         transaction.update(postRef, {'log': postLog});
       });
 
-      // Remove the log from the local list (Hive updates handled by listeners)
       setState(() {
         if (log['is_recurring']) {
-          // Remove the selected date from the log's dates
           log['dates'].remove(log['selected_date']);
           if (log['dates'].isEmpty) {
-            // Remove the entire log if no dates are left
             pendingRecurringLogs.remove(log);
           } else {
-            // Update the selected date
             log['selected_date'] = log['dates'].first;
           }
         } else {
