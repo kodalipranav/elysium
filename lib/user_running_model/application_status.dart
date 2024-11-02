@@ -108,7 +108,6 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
       ),
       body: Column(
         children: [
-          // Post Type Buttons
           Row(
             children: [
               Expanded(
@@ -145,7 +144,6 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
               ),
             ]
           ),
-          // Status Buttons
           Row(
             children: [
               Expanded(
@@ -208,7 +206,6 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
             ],
           ),
           const Divider(),
-          // List of Posts
           Expanded(
             child: ListView(
               children: getPosts(usedBox, userBox)
