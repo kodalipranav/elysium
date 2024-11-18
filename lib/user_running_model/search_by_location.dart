@@ -259,7 +259,7 @@ class SearchByLocationState extends State<SearchByLocation> {
   @override
   void initState() {
     super.initState();
-    String apiKey = 'AIzaSyDthfQsr548lxrHTDH7UrdY9vEa1xDf4Ns';
+    String apiKey = 'not provided';
     googlePlace = GooglePlace(apiKey);
   }
 
