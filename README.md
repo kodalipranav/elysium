@@ -4,4 +4,4 @@ Elysium is an app that can connect organizations to volunteers in a smooth, clea
 
 ## Getting Started
 
-The build method is not included in this repo.
+The build method and the Google API Location Key is not included in this repo.
